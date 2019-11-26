@@ -1,0 +1,175 @@
+<ul class="breadcrumb font-italic">
+	<li><a [routerLink]="['/trangchu']" class=" text-decoration-none">Trang Chủ /&nbsp; </a></li>
+	<li class="active">Tài Khoản /&nbsp;</li>
+	<li class="active">Đăng Ký</li>
+</ul>
+<div class="my-4" [hidden]='_submit'>
+	<form #formUser ="ngForm" (ngSubmit)="onSubmit(formUser)" class="was-validated my-form text-primary" oninput='repass.setCustomValidity(repass.value != password.value ? "Passwords" : "")'>	
+		<h4 class="text-center pt-4 text-primary text-monospace">ĐĂNG KÝ TÀI KHOẢN</h4>
+		<hr class="border-info"/> 
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Họ Tên:</label>					
+			</div>
+			<div class="form-group col-md-4">					
+				<input [(ngModel)]="fullname" name="fullname" type="text" class="form-control" pattern=".{4,30}" required>
+				<div class="invalid-feedback">Họ tên từ 4-30 kí tự</div>
+			</div>
+		</div>		
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Ngày Sinh:</label>					
+			</div>
+			<div class="form-group col-md-4">					
+				<input [(ngModel)]="birthday" name="birthday" type="date" class="form-control" required>
+			</div>
+		</div>	
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="validationServer01">Giới Tính:</label>					
+			</div>
+			<div class="form-check form-check-inline form-group col-md-4">	
+				<div  class="mr-5">				
+					<input [(ngModel)]="gender" id="na" class="form-check-input" type="radio" name="gender" value="true" required>
+					<label for="na" class="form-check-label">Nam</label>
+				</div>
+				<div class="mt-1">					
+					<input [(ngModel)]="gender" id="nu" class="form-check-input" type="radio" name="gender" value="false" required>
+					<label for="nu" class="form-check-label">Nữ</label>
+				</div>				
+			</div>
+		</div> 
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Tên Đăng Nhập:</label>
+			</div>
+			<div class="col-md-4 form-group ">
+				<input [(ngModel)]="username" name="username" type="text" class="form-control" required pattern="^[A-Za-z0-9_\.]{4,18}$">
+				<div class="invalid-feedback">Từ 4-18 kí tự,không chứa kí tự đặc biệt (!@#$%^&*)</div>
+			</div>				
+		</div>	
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="exampleInputPassword1">Mật Khẩu:</label>
+			</div>
+			<div class="col-md-4" *ngIf="!check">
+				<input [(ngModel)]="password" type="password" class="form-control" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">5-20 kí tự,chứa 1 chữ hoa,1 chữ thường,1 chữ số</div>
+			</div>
+			<div class="col-md-4" *ngIf="check">
+				<input [(ngModel)]="password" type="text" class="form-control" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">5-20 kí tự,chứa 1 chữ hoa,1 chữ thường,1 chữ số</div>
+			</div>
+		</div>
+		<div class="form-row pl-2">
+			<div class="form-check form-group offset-md-5">
+				<input [(ngModel)]="check" id="hmk" class="form-check-input" type="checkbox" name="check">
+				<label class="form-check-label text-blue" for="hmk">Hiện Mật Khẩu</label>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">					
+				<label for="exampleInputPassword2">Xác Nhận Mật Khẩu:</label>
+			</div>
+			<div class="form-group col-md-4" *ngIf="!check">
+				<input [(ngModel)]="repass" type="password" class="form-control" name="repass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">Mật khẩu phải giống nhau</div>
+			</div>
+			<div class="form-group col-md-4" *ngIf="check">
+				<input [(ngModel)]="repass" type="text" class="form-control" name="repass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">Mật khẩu phải giống nhau</div>
+			</div>
+		</div>
+
+		<div class="form-row mb-3">
+			<div class="col-md-2 offset-md-3">
+				<label>Địa Chỉ Email:</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="email" name="email" type="email" class="form-control" required pattern="^[A-Za-z0-9_.]{2,32}@([a-zA-Z0-9]{3,12})(.[a-zA-Z]{2,12})+$">	
+				<div class="invalid-feedback">Vui lòng nhập đúng định dạng Email </div>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Học Phí</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="schoolfee" name="schoolfee" type="number" class="form-control" min="0" required>
+			</div>				
+		</div> 
+
+		<div class="form-row sr-only">
+			<div class="col-md-2 offset-md-3">
+				<label>Điểm</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="marks" name="marks" type="number" min="0" class="form-control">	
+			</div>				
+		</div>			
+		<div class="form-row">
+			<div class="form-check form-group offset-md-3 pl-4">
+				<input [(ngModel)]="checkbox" id="checkdk" class="form-check-input" type="checkbox" name="checkbox" required>
+				<label class="form-check-label" for="checkdk">Đồng ý các điều khoản</label>
+			</div>
+		</div>
+		<hr class="border-info"/>
+		<div class="form-row">			
+			<div class="form-group col-md-2 offset-md-4">			
+				<button (click)="onSM(formUser)" [disabled]="formUser.invalid" type="submit" class="btn btn-primary btn-block">
+					ĐĂNG KÝ 
+				</button>
+			</div>	
+			<div class="form-group col-md-2">
+				<button (click)='onReset(formUser)' type="button" class="btn btn-primary btn-block">
+					NHẬP LẠI 
+				</button>
+			</div>		
+		</div>					
+	</form>
+</div>
+
+<div class="my-form pt-4 mb-3" [hidden]='!_submit'>
+	<h4 class="text-center text-danger">Đăng Ký Thành Công</h4>
+	<hr class="border-danger mb-5">
+	<h4 class="text-center text-primary mb-4">Thông Tin Tài Khoản Của Bạn</h4>
+	<table class="table table-striped table-hover table-responsive-sm text-primary table-bordered text-center mb-5">
+		<thead class="table-warning">
+			<tr>
+				<th scope="col">Tài Khoản</th>
+				<th scope="col">Mật Khẩu</th>
+				<th scope="col">Họ Tên</th>
+				<th scope="col">Email</th>
+				<th scope="col">Giới Tính</th>
+				<th scope="col">Năm Sinh</th>
+				<th scope="col">Học Phí</th>
+				<th scope="col">Điểm</th>
+			</tr>
+		</thead>
+		<tbody>	 
+			<tr>
+				<td class="align-middle">{{username}}</td>
+				<td class="align-middle">{{password}}</td>
+				<td class="align-middle">{{fullname}}</td>
+				<td class="align-middle">{{email}}</td>
+				<td class="align-middle">{{gender == "true" ? "Nam":"Nữ"}}</td>
+				<td class="align-middle">{{birthday | date}}</td>
+				<td class="align-middle">{{schoolfee | currency:"VND"}}</td>
+				<td class="align-middle">{{marks}}</td>			
+			</tr>				
+		</tbody>
+	</table>
+	<hr class="border-danger"/>
+	<div class="text-center pt-3 pb-4">
+		<button (click)="_submit = !_submit" class="btn btn-outline-info hvr-bt mr-4">
+			<img src="assets/images/back.png" class="card-img-top" style="max-width: 23px">
+			<span class="ml-1">QUAY LẠI</span>
+		</button>
+		<button [routerLink]="['/dangnhap']" class="btn btn-outline-info hvr-bt">ĐĂNG NHẬP</button>
+	</div>
+</div>

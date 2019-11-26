@@ -1,0 +1,73 @@
+<img src="assets\images\banner\online.jpg" width="100%" height="180px">
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">      
+	
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">            
+						<a class="nav-link txtshadow" [routerLink]="['/trangchu']">
+							<span class="hvr-underline-from-center">
+								<h5>ITC-Exam</h5>
+							</span>
+						</a>
+					</li>
+			<li class="nav-item active">            
+				<a class="nav-link txtshadow" [routerLink]="['/trangchu']">
+					<span class="hvr-underline-from-center">
+						<i class="fas fa-home mr-1"></i><b>TRANG CHỦ</b>
+					</span>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" [routerLink]="['/gioithieu']"> 
+					<span class="hvr-underline-from-center">
+						<i class="fas fa-info mr-1"></i><b>GIỚI THIỆU</b>
+					</span>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" [routerLink]="['/lienhe']"> 
+					<span class="hvr-underline-from-center">
+						<i class="fas fa-phone fa-rotate-180 mr-1"></i><b>LIÊN HỆ </b>
+					</span>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" [routerLink]="['/gopy']"> 
+					<span class="hvr-underline-from-center">
+						<i class="far fa-comment-alt mr-1"></i><b>GÓP Ý</b>
+					</span>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" [routerLink]="['/hoidap']"> 
+					<span class="hvr-underline-from-center">
+						<i class="fas fa-question mr-1"></i><b>HỎI ĐÁP</b>
+					</span>
+				</a>
+			</li>
+			      
+		</ul>	
+
+		<div class="dropdown mt-3 mt-lg-0">
+			<button type="button" class="glow-on-hover btn btn-primary font-weight-bold hvr-icon-hang" data-toggle="dropdown">
+				<span class="mr-1 txtshadow" *ngFor="let log of userLogin">{{log.username|uppercase}}</span>
+				<i class="fas fa-caret-down fa-lg hvr-icon text-violet"></i>
+			</button>	
+
+			<div class="dropdown-menu my-bgmenu my-form mt-2 border-primary dropdown-menu-lg-right dropdown-menu-md-left">
+				<a class="dropdown-item my-bd" [routerLink]="['/dangky']">Đăng Ký</a>
+				<a class="dropdown-item my-bd" [routerLink]="['/dangnhap']" (click)="checkIn()">Đăng Nhập</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item my-bd" [routerLink]="['/quenmatkhau']">Quên Mật Khẩu</a>
+				<a class="dropdown-item my-bd" href="" *ngIf="showQuiz" (click)="logout()">Đăng Xuất</a>        
+				<a class="dropdown-item my-bd" *ngIf="showQuiz" [routerLink]="['/doimatkhau']">
+					Đổi Mật Khẩu
+				</a>            
+				<a class="dropdown-item my-bd" *ngIf="showQuiz" [routerLink]="['/capnhattaikhoan']">
+					Cập Nhật Tài Khoản
+				</a>   
+			</div>
+		</div>
+	</div>
+</nav>

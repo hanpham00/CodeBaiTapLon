@@ -1,0 +1,84 @@
+<div class="my-4 pt-2" [hidden]='_submit'>
+	<form #formStudent ="ngForm" (ngSubmit)="submitEdit(formStudent)" *ngIf="student" class="was-validated my-form text-primary">	
+		<h4 class="text-center pt-3 text-info text-monospace">Cập Nhật Thông Tin Tài Khoản</h4>
+		<hr class="border-info"/>    
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="username">Tên Đăng Nhập:</label>
+			</div>
+			<div class="col-md-4 form-group ">
+				<input [(ngModel)]="student.username" name="username" type="text" class="form-control" readonly>
+			</div>				
+		</div>		
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Điểm</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="student.marks" name="marks" type="number" min="0" class="form-control" readonly>
+			</div>				
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Họ Tên:</label>					
+			</div>
+			<div class="form-group col-md-4">					
+				<input [(ngModel)]="student.fullname" name="fullname" type="text" class="form-control" pattern=".{4,30}" required>
+				<div class="invalid-feedback">Họ tên từ 4-30 kí tự</div>
+			</div>
+		</div>	
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="validationServer01">Giới Tính:</label>					
+			</div>
+			<div class="form-check form-check-inline form-group col-md-4">	
+				<div  class="mr-5">				
+					<input [(ngModel)]="student.gender" id="na" class="form-check-input" type="radio" name="gender" value="true" required>
+					<label for="na" class="form-check-label">Nam</label>
+				</div>
+				<div class="mt-1">					
+					<input [(ngModel)]="student.gender" id="nu" class="form-check-input" type="radio" name="gender" value="false" required>
+					<label for="nu" class="form-check-label">Nữ</label>
+				</div>				
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Ngày Sinh:</label>					
+			</div>
+			<div class="form-group col-md-4">					
+				<input [(ngModel)]="student.birthday" name="birthday" type="date" class="form-control" required>
+			</div>
+		</div>
+
+		<div class="form-row mb-3">
+			<div class="col-md-2 offset-md-3">
+				<label>Địa Chỉ Email:</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="student.email" name="email" type="email" class="form-control" required pattern="^[A-Za-z0-9_.]{2,32}@([a-zA-Z0-9]{3,12})(.[a-zA-Z]{2,12})+$">
+				<div class="invalid-feedback">Vui lòng nhập đúng định dạng Email </div>	
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Học Phí</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="student.schoolfee" name="schoolfee" type="number" class="form-control" min="0" required>
+			</div>				
+		</div>
+		<hr class="border-info"/>
+		<div class="form-row">			
+			<div class="form-group col-md-4 offset-md-4">
+				<button [disabled]="formStudent.invalid" type="submit" class="btn btn-info btn-block">
+					XÁC NHẬN
+				</button>	
+			</div>		
+		</div>
+	</form>
+</div>

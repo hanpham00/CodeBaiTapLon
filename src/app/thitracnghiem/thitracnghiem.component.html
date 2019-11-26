@@ -1,0 +1,108 @@
+<ul class="breadcrumb font-italic mb-5">
+	<li><a [routerLink]="['/trangchu']" class="text-decoration-none">Trang Chủ /&nbsp; </a></li>
+	<li><a [routerLink]="['/danhmucmonhoc']" class=" text-decoration-none">Môn Học /&nbsp; </a></li>
+	<li *ngIf="!selectSubject" class="active">{{subject.Name}}</li>
+	<li *ngIf="selectSubject" class="active">{{selectSubject.Name}}</li>
+</ul>
+
+<div class="row mb-2">
+	
+	
+	<div class="col-md-9" id="training">
+		<div *ngIf="!selectSubject" class="mb-4 text-primary">
+			<h5 class="card-header bg-quiz">
+				<div>
+					<span class="text-success mr-2">Môn Thi&nbsp;&nbsp;&nbsp;:</span>
+					<span>{{subject.Name}}</span>
+				</div>
+				<div class="mt-2">
+					<span class="text-success mr-2">Thời Gian:</span>
+					<span class="bg-black text-center txtshadow text-white px-2 p-1" id="timer">45':00</span>
+					<span *ngIf="showTime" class="show fade ml-4">
+						<button type="button" class="btn txtshadow btn-sm btn-danger" (click)="startTime()" (click)="firstPage()">
+							BẮT ĐẦU
+						</button>
+					</span>					
+				</div>			
+			</h5>				
+		</div>	
+
+		<div *ngIf="selectSubject" class="mb-4 text-primary">
+			<h5 class="card-header bg-quiz">
+				<div>
+					<span class="text-success mr-2">Môn Thi&nbsp;&nbsp;&nbsp;:</span>
+					<span>{{selectSubject.Name}}</span>
+				</div>
+				<div class="mt-1">
+					<span class="text-success mr-2">Thời Gian:</span>
+					
+					<span class="bg-black text-center txtshadow text-white px-2 p-1" id="timer">45':00</span>
+					<span *ngIf="showTime" class="show fade ml-4">
+						<button type="button" class="btn txtshadow btn-sm btn-danger" (click)="startTime()" (click)="firstPage()">
+							BẮT ĐẦU
+						</button>
+					</span>
+				</div>
+			</h5>				
+		</div>		
+		
+		<div *ngFor="let ques of quizs|paginate:{itemsPerPage:rowpage,currentPage:page}" class="card">			
+			<div class="card-header pl-1 mb-4 bg-quiz bd2">
+				<span class="text-danger font-weight-bold">Câu {{page}}- </span>
+				<span class="text-blue">{{ques.Text}}</span>
+			</div>
+			<div *ngFor="let Ans of ques.Answers" class="ml-5 mb-3 text-primary">
+				<input [(ngModel)]="answers[page-1]" name="{{ques.Id}}" id="{{Ans.Id}}" value="{{Ans.Id}}" class="form-check-input" type="radio">
+				<label for="{{Ans.Id}}">{{Ans.Text}}</label>
+			</div>
+			<div class="card-footer bg-quiz h5 mb-0 pb-0">
+				<span class="text-info">Số Câu </span>
+				<span class="text-muted">&nbsp;{{totalM()}}</span>
+				<button (click)="endTime()" type="button" class="mb-2 txtshadow bor btn btn-info float-right border-info">
+					GỬI BÀI
+				</button>
+			</div>		
+		</div>	
+		<div *ngIf="!onShowPage" class="pagination justify-content-center text-primary my-4">			
+			<i class="disabled btn btn-outline-dark text-muted far fa-hand-point-up"></i>
+			<i class="disabled btn btn-outline-dark text-muted mx-3 far fa-hand-point-left"></i>
+			<i class="disabled btn btn-outline-dark text-muted far fa-hand-point-right"></i>
+			<i class="disabled btn btn-outline-dark text-muted ml-3 far fa-hand-point-down"></i>
+		</div>
+		<div *ngIf="onShowPage" class="pagination justify-content-center text-primary my-4">			
+			<i (click)='firstPage()' class="btn btn-outline-info far fa-hand-point-up fa-lg"></i>
+			<i (click)='prePage()' class="btn btn-outline-info mx-3 far fa-hand-point-left fa-lg"></i>
+			<i (click)='nextPage()' (click)="pointTest()" class="btn btn-outline-info far fa-hand-point-right fa-lg"></i>
+			<i (click)='lastPage()' class="btn btn-outline-info ml-3 far fa-hand-point-down fa-lg"></i>
+		</div>
+	</div>
+	<div id="result" class="col-md-9 mt-5" style="display: none;">
+		<table class="table table-striped bgr table-responsive-sm text-primary table-bordered text-center">
+			<thead class="table-success h5">
+				<tr>
+					<th scope="col">Môn Thi</th>
+					<th scope="col">Điểm Thi</th>
+					<th scope="col">Thời Gian Làm Bài</th>
+				</tr>
+			</thead>
+			<tbody>	 
+				<tr class="text-black h5">
+					<td *ngIf="!selectSubject" class="align-middle">{{subject.Name}}</td>
+					<td *ngIf="selectSubject" class="align-middle">{{selectSubject.Name}}</td>
+					<td class="align-middle">{{point}}</td>
+					<td id="timer-2" class="align-middle"></td>	
+				</tr>				
+			</tbody>
+		</table>
+	</div>	
+	
+		<div class="col-md-3 mb-4">
+			<nav class="nav flex-column my-imd pb-2" >
+				<a class="list-group-item list-group-item-action active" >
+					<b>DANH MỤC MÔN HỌC</b>
+				  </a>
+				  <div *ngFor='let p of subjects' >
+				  <a    [routerLink]="['/danhmucmonhoc',p.Id]" class="list-group-item list-group-item-action">{{p.Name}}</a></div>
+			</nav>
+		  </div>	
+</div>

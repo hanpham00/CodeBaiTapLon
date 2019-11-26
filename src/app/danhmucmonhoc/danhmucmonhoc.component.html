@@ -1,0 +1,36 @@
+<ul class="breadcrumb font-italic mb-5">
+  <li><a [routerLink]="['/trangchu']" class="text-decoration-none">Trang Chủ /&nbsp; </a></li>
+  <li class="active">Môn Học</li>
+</ul>
+
+<div class="row mb-2">
+
+  <div class="col-md-7 offset-md-1" >
+    <div class="row text-center mb-md-3 mb-sm-2 text-primary">
+      <div class="col-sm-6 mb-4" *ngFor='let p of subjects| paginate: { itemsPerPage: rowonpage, currentPage: page }'>
+        <div class=" card img-subject"   >
+          <a [routerLink]="['/danhmucmonhoc',p.Id]"><img src="assets/images/logo/{{p.Logo}}"></a>
+          <div class="card-body pb-0 pt-2">
+            <h6 class="card-title font-weight-bold">{{p.Name}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+        <button style='font-size:24px'><i class='far fa-hand-point-left' (click)="prePage()"></i></button>
+        <button style='font-size:24px'><i class='far fa-hand-point-right' (click)="nextPage()"></i></button>
+        <button style='font-size:24px'><i class='far fa-hand-point-up'></i></button>
+        <button style='font-size:24px'><i class='far fa-hand-point-down'></i></button>
+</div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <nav class="nav flex-column my-imd pb-2" >
+        <a class="list-group-item list-group-item-action active" >
+            <b>DANH MỤC MÔN HỌC</b>
+          </a>
+          <div *ngFor='let p of subjects' >
+          <a    [routerLink]="['/danhmucmonhoc',p.Id]" class="list-group-item list-group-item-action">{{p.Name}}</a></div>
+    </nav>
+  </div>
+</div>

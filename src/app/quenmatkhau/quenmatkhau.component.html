@@ -1,0 +1,71 @@
+<ul class="breadcrumb font-italic mb-4">
+	<li><a [routerLink]="['/trangchu']" class=" text-decoration-none">Trang Chủ /&nbsp; </a></li>
+	<li  class="active">Tài Khoản /&nbsp;</li>
+	<li class="active">Quên Mật Khẩu</li>
+</ul>
+
+<div class="mb-4 mb-5" [hidden]='_submit'>
+	<form #formSend ="ngForm" (ngSubmit)="checkData(formSend)" class="was-validated my-form text-primary">	
+		<h4 class="text-center pt-4 text-primary text-monospace">Quên Mật Khẩu</h4>
+		<hr class="border-primary"/> 
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Tên Đăng Nhập:</label>
+			</div>
+			<div class="col-md-4 form-group ">
+				<input [(ngModel)]="username" name="username" type="text" class="form-control" required pattern="^[A-Za-z0-9_\.]{4,18}$">
+				<div class="invalid-feedback">Từ 4-18 kí tự,không chứa kí tự đặc biệt (!@#$%^&*)</div>
+			</div>	 			
+		</div>	
+
+		<div class="form-row mb-3">
+			<div class="col-md-2 offset-md-3">
+				<label>Địa Chỉ Email:</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="email" name="email" type="email" class="form-control" required pattern="^[A-Za-z0-9_.]{2,32}@([a-zA-Z0-9]{3,12})(.[a-zA-Z]{2,12})+$">	
+				<div class="invalid-feedback">Vui lòng nhập đúng định dạng Email </div>
+			</div>
+		</div>
+		<hr class="border-primary"/>
+		<div class="form-row">			
+			<div class="form-group col-md-4 offset-md-4">			
+				<button [disabled]="formSend.invalid" type="submit" class="btn btn-primary btn-block">
+					GỬI YÊU CẦU 
+				</button>
+			</div>	
+		</div>					
+	</form>
+</div> 
+<div  class="my-form pt-4 mb-3 mb-5" [hidden]='!_submit'>
+	<h4 class="text-center text-danger">Lấy Mật Khẩu Thành Công</h4>
+	<p class="text-muted text-center font-italic">Vui lòng&nbsp;
+		<a class="text-decoration text-info" [routerLink]="['/dangnhap']">Đăng Nhập</a>
+		&nbsp;để đổi mật khẩu
+	</p>
+	<hr class="border-danger mb-4">
+	<h4 class="text-center text-primary mb-4">Thông Tin Đăng Nhập</h4>
+	<table class="table table-striped table-hover table-responsive-sm text-primary table-bordered text-center mb-5">
+		<thead class="table-info">
+			<tr>
+				<th scope="col">Tài Khoản</th>
+				<th scope="col">Mật Khẩu</th>
+				<th scope="col">Email</th>
+			</tr>
+		</thead>
+		<tbody>	
+			<tr *ngFor="let data of getData">
+				<td class="align-middle">{{data.username}}</td>
+				<td class="align-middle">{{data.password}}</td>
+				<td class="align-middle">{{data.email}}</td>
+			</tr>				
+		</tbody>
+	</table>
+	<hr class="border-danger"/> 
+	<div class="text-center py-4">
+		<button (click)="back()" class="btn btn-outline-info hvr-bt mr-4">
+			<img src="assets/images/back.png" class="card-img-top" style="max-width: 23px">
+			<span class="ml-1">QUAY LẠI</span>
+		</button>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+<ul class="breadcrumb font-italic">
+	<li><a [routerLink]="['/trangchu']" class=" text-decoration-none">Trang Chủ /&nbsp; </a></li>
+	<li  class="active">Tài Khoản /&nbsp;</li>
+	<li class="active">Đăng Nhập</li>
+</ul>
+<div class="my-4">
+	<form #formUser = "ngForm" (ngSubmit)="onSubmit(formUser)" class="was-validated my-card my-form my-2" style="height: 650px;">
+		
+		<h4 class="text-center py-4 text-primary text-monospace font-weight-bold">ĐĂNG NHẬP</h4>		
+
+		<div class="form-row">
+			<div class="col-md-1 offset-md-3 mt-2 text-md-right">	
+				<label for="validationServer01"><i class="fas fa-user fa-lg"></i></label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="username" type="text" name="username" class="form-control" placeholder="Username" required pattern="^[A-Za-z0-9_\.]{4,18}$">
+			</div>	
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-1 offset-md-3 mt-2 text-md-right">
+				<label for="exampleInputPassword1"><i class="fas fa-lock fa-lg"></i></label>
+			</div>
+			<div class="form-group col-md-4" *ngIf="!Checkbox">
+				<input [(ngModel)]="password" type="password" name="password" class="form-control" placeholder="Password" pattern=".{5,20}" required>
+			</div>
+			<div class="form-group col-md-4" *ngIf="Checkbox">
+				<input [(ngModel)]="password" type="text" name="password" class="form-control" placeholder="Password" pattern=".{5,20}" required>
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="form-check form-group col-md-4 offset-md-4 offset-1">
+				<input [(ngModel)]="Checkbox" id="check1" class="form-check-input" type="checkbox" name="Checkbox">
+				<label class="form-check-label" for="check1">Hiện Mật Khẩu</label>
+			</div>
+		</div>
+
+		<div class="form-row">				
+			<div class="col-md-4 offset-md-4 offset-1">
+				<a [routerLink]="['/quenmatkhau']" class="text-primary">Quên Mật Khẩu</a>
+			</div>
+		</div>
+
+		<hr/>
+		<div class="form-row">			
+			<div class="form-group col-md-2 offset-md-4 col-6">
+				<button [routerLink]="['/dangky']" class="btn btn-outline-primary btn-sm btn-block" role="button">
+					ĐĂNG KÝ
+				</button>
+			</div>		
+			<div class="form-group col-md-2 offset-md-0 col-6">
+				<button type="submit" (click)="checkIn()" class="btn btn-outline-primary btn-sm btn-block" role="button">
+					ĐĂNG NHẬP
+				</button>					
+			</div>			
+		</div>	
+	</form>	
+</div>

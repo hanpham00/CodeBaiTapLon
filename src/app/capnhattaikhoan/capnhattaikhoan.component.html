@@ -1,0 +1,143 @@
+<ul class="breadcrumb font-italic">
+	<li><a [routerLink]="['/trangchu']" class=" text-decoration-none">Trang Chủ /&nbsp; </a></li>
+	<li class="active">Tài Khoản /&nbsp;</li>
+	<li class="active">Cập Nhật Tài Khoản</li>
+</ul>
+
+<div class="my-form pt-5 pb-2 my-4">
+	<h4 class="text-center text-success pb-3">Thông Tin Tài Khoản Của Bạn</h4>
+	<hr class="mb-5 border-success">
+	<table class="table table-striped table-hover table-responsive-sm text-primary table-bordered text-center mb-5">
+		<thead class="table-success">			 
+			<tr>
+				<th scope="col">Tài Khoản</th>
+	 			<th scope="col">Họ Tên</th>
+				<th scope="col">Giới Tính</th>
+				<th scope="col">Ngày Sinh</th>
+				<th scope="col">Email</th>
+				<th scope="col">Học Phí</th>
+				<th scope="col">Điểm</th>
+				<th scope="col">Cập Nhật</th>
+			</tr>
+		</thead> 
+		<tbody *ngIf="showEdit">	
+			<tr *ngFor="let std of userlogin">
+				<td class="align-middle">{{std.username}}</td>
+				<td class="align-middle">{{std.fullname}}</td>	
+				<td class="align-middle">{{std.gender == "true" ? "Nam":"Nữ"}}</td>	
+				<td class="align-middle">{{std.birthday | date}}</td>	
+				<td class="align-middle">{{std.email}}</td>	
+				<td class="align-middle">{{std.schoolfee | currency:"VND"}}</td>	
+				<td class="align-middle">{{std.marks}}</td>	
+				<td class="align-middle">
+					<span (click)="onSelectST(std)" (click)="show =!show"><i class="fas fa-user-edit fa-2x"></i></span>
+				</td>			
+			</tr>			 	
+		</tbody>
+		<tbody *ngIf="!showEdit">				
+			<tr *ngFor="let us of userlogin">
+				<td class="align-middle">{{us.username}}</td>
+				<td class="align-middle">{{us.fullname}}</td>	
+				<td class="align-middle">{{us.gender == "true" ? "Nam":"Nữ"}}</td>	
+				<td class="align-middle">{{us.birthday | date}}</td>	
+				<td class="align-middle">{{us.email}}</td>	
+				<td class="align-middle">{{us.schoolfee | currency:"VND"}}</td>	
+				<td class="align-middle">{{us.marks}}</td>
+				<td class="align-middle">
+					<span (click)="onSelectUS(us)"><i class="fas fa-user-edit fa-2x"></i></span>
+				</td>			
+			</tr>			
+		</tbody>
+	</table>
+</div>
+
+<div class="my-4 pt-2" *ngIf="isshow">
+	<form #formUser ="ngForm" (ngSubmit)="onSub(formUser)" class="was-validated my-form text-primary">	
+		<h4 class="text-center pt-3 text-info text-monospace">Cập Nhật Thông Tin Tài Khoản</h4>
+		<hr class="border-info" />    
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="username">Tên Đăng Nhập:</label>
+			</div>
+			<div class="col-md-4 form-group ">
+				<input [(ngModel)]="fmEdit.username" name="username" type="text" class="form-control" readonly>
+			</div>				
+		</div>	
+		
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Điểm</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="fmEdit.marks" name="marks" type="number" min="0" class="form-control" readonly>	
+			</div>				
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Họ Tên:</label>					
+			</div>
+			<div class="form-group col-md-4">					
+				<input [(ngModel)]="fmEdit.fullname" name="fullname" type="text" class="form-control" pattern=".{4,30}" required>
+				<div class="invalid-feedback">Họ tên từ 4-30 kí tự</div>
+			</div>
+		</div>	
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="validationServer01">Giới Tính:</label>					
+			</div>
+			<div class="form-check form-check-inline form-group col-md-4">	
+				<div  class="mr-5">				
+					<input [(ngModel)]="fmEdit.gender" id="na" class="form-check-input" type="radio" name="gender" value="true" required>
+					<label for="na" class="form-check-label">Nam</label>
+				</div>
+				<div class="mt-1">					
+					<input [(ngModel)]="fmEdit.gender" id="nu" class="form-check-input" type="radio" name="gender" value="false" required>
+					<label for="nu" class="form-check-label">Nữ</label>
+				</div>				
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Ngày Sinh:</label>					
+			</div>
+			<div class="form-group col-md-4">					
+				<input [(ngModel)]="fmEdit.birthday" name="birthday" type="date" class="form-control" required>
+			</div>
+		</div>
+
+		<div class="form-row mb-3">
+			<div class="col-md-2 offset-md-3">
+				<label>Địa Chỉ Email:</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="fmEdit.email" name="email" type="email" class="form-control" required pattern="^[A-Za-z0-9_.]{2,32}@([a-zA-Z0-9]{3,12})(.[a-zA-Z]{2,12})+$">
+				<div class="invalid-feedback">Vui lòng nhập đúng định dạng Email </div>	
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label>Học Phí</label>
+			</div>
+			<div class="form-group col-md-4">
+				<input [(ngModel)]="fmEdit.schoolfee" name="schoolfee" type="number" class="form-control" min="0" required>
+			</div>				
+		</div>	
+
+		<hr class="border-info"/>
+		<div class="form-row">			
+			<div class="form-group col-md-4 offset-md-4">	
+				<button (click)="onSub(formUser)" [disabled]="formUser.invalid" type="submit" (click)="saveUserLocal(StudentById)" class="btn btn-info btn-block">
+					XÁC NHẬN
+				</button>	
+			</div>	
+		</div>
+	</form>
+</div>
+
+<div *ngIf="show">
+	<app-editaccount [student] = "selectStudent" (editStudent)="onEdit($event)"></app-editaccount>
+</div>

@@ -1,0 +1,78 @@
+#timer {
+    border-radius: 5px;
+}
+.bgr{
+    -webkit-box-shadow: 0px 0px 12px 2px rgba(36,117,249,0.35);
+    -moz-box-shadow: 0px 0px 12px 2px rgba(36,117,249,0.35);
+    box-shadow: 0px 0px 7px 2px rgba(36,117,249,0.35);
+    transition: all ease-in 0.5s;
+}
+.bg-quiz {
+	background-color: #E7F5F9;
+}
+
+.bd2{
+	border: solid 2px #E6E9EA; 
+}
+
+
+
+.glow-on-hover {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(1px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000;
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+.glow-on-hover:hover {
+    color: #000 !important;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    border: 1px solid #ADC7E2;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}

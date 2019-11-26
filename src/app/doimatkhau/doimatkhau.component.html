@@ -1,0 +1,112 @@
+<ul class="breadcrumb font-italic">
+	<li><a [routerLink]="['/trangchu']" class=" text-decoration-none">Trang Chủ /&nbsp; </a></li>
+	<li  class="active">Tài Khoản /&nbsp;</li>
+	<li class="active">Đổi Mật Khẩu</li>
+</ul>
+
+<div class="my-form pt-4 pb-5 mt-4 mb-5">
+	<h4 class="text-center text-primary">Thông Tin Tài Khoản Của Bạn</h4>
+	<hr class="mt-4 mb-5 border-primary">
+	<table class="table table-striped table-hover table-responsive-sm text-primary table-bordered text-center">
+		<thead class="table-info">			 
+			<tr>
+				<th scope="col">Tài Khoản</th>
+				<th scope="col">Mật Khẩu</th>
+				<th scope="col">Cập Nhật Mật Khẩu</th>
+			</tr>
+		</thead>
+		<tbody *ngIf="showEdit">	
+			<tr *ngFor="let std of userlogin">
+				<td class="align-middle">{{std.username}}</td>
+				<td class="align-middle">{{std.password}}</td>	
+				<td class="align-middle">
+					<span (click)="onSelectST(std)" (click)="show =!show"><i class="fas fa-edit fa-2x"></i></span>
+				</td>			
+			</tr>			 	
+		</tbody>
+		<tbody *ngIf="!showEdit">				
+			<tr *ngFor="let us of userlogin">
+				<td class="align-middle">{{us.username}}</td>
+				<td class="align-middle">{{us.password}}</td>		
+				<td class="align-middle">
+					<span (click)="onSelectUS(us)"><i class="fas fa-edit fa-2x"></i></span>
+				</td>			
+			</tr>			
+		</tbody>
+	</table>
+</div>
+
+<div class="my-4" *ngIf="isshow">
+	<form #formUser ="ngForm" class="was-validated my-form text-primary" oninput='repass.setCustomValidity(repass.value != newpass.value ? "Passwordsc" : "")'>	
+		<h4 class="text-center pt-4 text-info text-monospace">Cập Nhật Mật Khẩu</h4>
+		<hr class="border-info" />    
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="username">Tên Đăng Nhập:</label>
+			</div>
+			<div class="col-md-4 form-group ">
+				<input [(ngModel)]="fmEdit.username" name="username" type="text" class="form-control" readonly>
+			</div>				
+		</div>	
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="exampleInputPassword1">Mật Khẩu Cũ:</label>
+			</div>
+			<div class="form-group col-md-4" *ngIf="!check">
+				<input [(ngModel)]="fmEdit.password" type="password" class="form-control" name="password" readonly>
+			</div>
+			<div class="form-group col-md-4" *ngIf="check">
+				<input [(ngModel)]="fmEdit.password" type="text" class="form-control" name="password" readonly>
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">
+				<label for="exampleInputPassword1">Mật Khẩu Mới:</label>
+			</div>
+			<div class="form-group col-md-4" *ngIf="!check">
+				<input [(ngModel)]="newpass" name="newpass" type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">1 chữ hoa,1 chữ thường,1 chữ số và từ 5-20 kí tự</div>
+			</div>
+			<div class="form-group col-md-4" *ngIf="check">
+				<input [(ngModel)]="newpass" name="newpass" type="text" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">1 chữ hoa,1 chữ thường,1 chữ số và từ 5-20 kí tự</div>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="col-md-2 offset-md-3">					
+				<label for="exampleInputPassword2">Xác Nhận:</label>
+			</div>
+			<div class="form-group col-md-4" *ngIf="!check">
+				<input [(ngModel)]="repass" name="repass" type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">Mật khẩu phải giống nhau</div>
+			</div>
+			<div class="form-group col-md-4" *ngIf="check">
+				<input [(ngModel)]="repass" name="repass" type="text" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}" required>
+				<div class="invalid-feedback">Mật khẩu phải giống nhau</div>
+			</div>
+		</div>
+
+		<div class="form-row pl-2">
+			<div class="form-check form-group offset-md-5">
+				<input [(ngModel)]="check" id="sp" class="form-check-input" type="checkbox" name="check">
+				<label class="form-check-label text-blue" for="sp">Hiện Mật Khẩu</label>
+			</div>
+		</div>
+
+		<hr class="border-info"/>
+		<div class="form-row">			
+			<div class="form-group col-md-4 offset-md-5">
+				<button  [disabled]="formUser.invalid" type="button" (click)="saveUserLocal(StudentById)" class="btn btn-info">
+					XÁC NHẬN
+				</button>	
+			</div>	
+		</div>
+	</form>
+</div>
+
+<div *ngIf="show">
+	<app-editpassword [student] = "selectStudent" (editStudent)="onEdit($event)"></app-editpassword>
+</div>
